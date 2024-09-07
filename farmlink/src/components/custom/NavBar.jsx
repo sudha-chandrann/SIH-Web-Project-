@@ -9,8 +9,8 @@ function NavBar() {
             path:'/'
         },
         {
-            term:"About",
-            path:'/about'
+            term:"Category",
+            path:'/category'
         },
         {
             term:"Services",
@@ -32,6 +32,7 @@ function NavBar() {
         {
             terms.map((term, index) => (
                 <NavLink 
+                key={index}
                 to={term.path}
                 className={({ isActive }) => 
                   isActive ? 'text-primarytext' : 'hover:text-primarytext'

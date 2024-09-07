@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Home from './pages/home'
 import { Outlet } from 'react-router-dom'
+import NavBar from './components/custom/NavBar'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,8 +12,10 @@ function App() {
   return (
    <>
    <div >
+   <div className='w-full h-16 fixed top-0 z-10 shadow-xl bg-white'>
+            <NavBar />
+        </div>
    <Outlet/>
-   {/* <Home/> */}
    </div>
    </>
   )

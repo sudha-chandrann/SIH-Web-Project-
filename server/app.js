@@ -17,8 +17,11 @@ app.use(express.urlencoded({
 
 app.use(cookieParser())
 import SellerRouter from "./routes/seller.route.js"
+import CategoryRouter from "./routes/cattegory.route.js";
 
 app.use("/api/v1/sellers",SellerRouter)
+app.use("/api/v1/category",CategoryRouter)
+
 
 
 

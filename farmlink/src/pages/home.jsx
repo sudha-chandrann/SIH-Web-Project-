@@ -1,5 +1,5 @@
 import NavBar from '@/components/custom/NavBar'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import bgimage from "@/assets/agriculturefield.jpg";
 import logo from "@/assets/appplogo.png";
 import vector from "@/assets/Vector.png"
@@ -8,17 +8,33 @@ import crop from "@/assets/crops2.jpg";
 import floral from "@/assets/Floral.png";
 import { LuPointer } from "react-icons/lu";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 function Home() {
+  const [data,setdata]=useState();
+  useEffect(()=>{
+      getcstegorydata() 
+  },[])
+  const getcstegorydata=async()=>{
+    try{
+      const response=await axios.get('/api/v1/category/get');
+      console.log(response.data.data);
+      setdata(response.data.data);
 
+    }
+    catch(error){
+      console.log("the error is ",error)
+
+    }
+    
+    
+  }
+  
     
   return (
     <div className='h-dvh '>
-        <div className='w-full h-16 fixed top-0 z-10 shadow-xl bg-white'>
-            <NavBar />
-
-        </div>
+      
         <main className='w-full h-dvh flex justify-center items-center'>
-            <img src={bgimage} className='object-cover w-full max-h-dvh h-full absolute top-0 left-0 right-0 bottom-0 '/>
+            <img src={bgimage} className='object-cover w-full max-h-dvh h-full absolute top-0 left-0 right-0 bottom-0 object-cen'/>
             <div className='bg-white/35 h-[50%] lg:h-[80%] w-[80%] lg:w-[60%]  backdrop-blur-sm flex items-center justify-center flex-col rounded-xl'>
             <img src={logo} className='h-40 lg:h-48'/>
             <div className='relative top-[-15px] flex items-center flex-col gap-2'>
@@ -68,7 +84,7 @@ function Home() {
             <div className='pt-2 md:pt-3'> <span className='text-yellow-400 text-md md:text-lg flex items-center'> <LuPointer className='pr-2 text-primarytext text-lg md:text-3xl'/> Real-time Data :</span>
             <p className='text-white md:text-base pl-2 text-xs'>Track crop sales in different regions to understand market dynamics and make informed purchasing decisions.</p>
             </div>
-
+         
 
 
             </div>
@@ -76,8 +92,34 @@ function Home() {
        
         </div>
        </section>
-       <section className='bg-white w-full h-dvh'></section>
-       <footer class="bg-bggreen text-white py-10 md:px-10 relative">
+       <section className='bg-white w-full h-fit min-h-dvh p-4'>
+        <div className='h-9 w-full text-bggreen text-center font-extrabold text-4xl'>
+               Categories 
+        </div>
+        <div className='w-full h-[70%] flex flex-wrap justify-center items-center '>
+        {data?.map((item, index) => (
+          <div
+            key={item._id}
+            className="flex-shrink-0 w-[90%]  md:w-1/2 lg:w-1/3 px-4 h-[90%] rounded-xl relative"
+          >
+            <div className="p-4 relative rounded-lg shadow-md text-black h-[300px] hover:h-[320px] transition-all ">
+              <img
+                src={item.imageUrl}
+                alt=""
+                className="h-full w-full object-cover object-left-top rounded-lg"
+              />
+             
+            </div>
+            <div className="absolute bottom-4 bg-black/60 px-3 py-2 rounded-r-2xl left-8 text-white font-semibold">
+                {item.title}
+            </div>
+
+          </div>
+        ))}
+        </div>
+     
+       </section>
+       <footer className="bg-bggreen text-white py-10 md:px-10 relative">
        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
        <img src={vector} className=' absolute right-[50%] h-[80%] top-[10%]'/>
     <div class="mb-4 md:mb-0">
